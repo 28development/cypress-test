@@ -11,48 +11,6 @@
 - [cypress](https://www.cypress.io)
 - [cockroachdb](https://www.cockroachlabs.com/)
 
-## Prisma
-
-Prisma was chosen as the ORM for this project because it offers a type-safe and intuitive API for interacting with databases, while also providing powerful features such as schema migrations and data modeling tools, allowing for a more efficient and streamlined database development process.
-
-## Tailwind
-
-Tailwind CSS was utilized in this project as a utility-first CSS framework, providing a highly customizable and efficient way to style UI components.
-Using Tailwind CSS I could generate a proper UI within minutes and did not have to waste time to think about minor things like, naming elements with proper classnames.
-Also tailwind supports treeshaking, which eliminates not used classes. If the application grows and has a design system (branding guideline), that can be easily defined in the tailwind.config file aswell.
-
-## TRPC
-
-Trpc is a framework for building type-safe and efficient RPC (remote procedure call) APIs in TypeScript, allowing for seamless communication between client and server applications. It offers features such as automatic code generation.
-
-## Database
-
-Instead of creating something like a docker image I decided to just create a free db instance using [cockroachdb](https://www.cockroachlabs.com/) to scaffold and test this application faster.
-You can paste your own connection string or just use mine (probably shared via email).
-CockroachDB was chosen for this project due to its distributed architecture, which provides high availability and scalability (scales horizontally).
-
-Since there may be the possibility that the application may need backend procedures such as adding, mutating or deleting data,
-I added a database and and api instead of static data such as a json file which could be used as a single source of truth regarding the data aswell.
-
-## Seeder
-
-A seeder has been used to populate the database with static data and simulate a fetch request, as a means of ensuring a consistent and reliable testing environment.
-
-The seeder can be found inside `prisma/seed.ts`.
-
-The seeder can be ran using following command `pnpm run prisma seed`.
-(Since the current prod database already contains this data one does not need this script to run again)
-
-## TypeScript
-
-TypeScript was used in this project to help catch potential errors early in the development process, improve code maintainability, and provide better editor support through the use of static typing.
-
-## Frontend -> React / Next.js
-
-I used Typescript with React and Next.js to make my code more reliable and easier to maintain as my frontend technology stack. React allows for the creation of reusable and modular components, which simplifies the development process and promotes code reuse.
-
-Next.js offers benefits such as server-side rendering, automatic code splitting, and built-in API routes, which can improve overall application performance and reduce development time. Also Next.js includes a built-in routing system, which simplifies the management of application routes and makes it easier to navigate between pages, which may be useful for future implementation requests.
-
 ## cypress -> e2e tests
 
 Cypress was utilized in this project as an end-to-end testing framework, allowing for the creation of automated tests that simulate user interactions and provide a high level of confidence in the stability and reliability of the application. Playwright was not used since the developer experience using Cypress overweights the test performance using Playwright.
@@ -97,3 +55,19 @@ To run the unit test you can run following command: `pnpm run test`, which also 
   DATABASE_URL="CONNECTION_STRING_FROM_EMAIL"
 - Run `nvm current`, or manually change the node version to 18.14 `18.14.2`, the app was built on that version (other version should work aswell most likely)
 - Run `pnpm dev`
+
+## Cypress VS Selenium
+
+- Architecture: Cypress runs directly in the browser and has access to everything happening in real time. This means it can understand everything happening in the application synchronously. Selenium, on the other hand, runs outside the browser and operates via network calls, which can lead to timing issues and less reliable tests.
+
+- Ease of Setup: Setting up Cypress is easier compared to Selenium. Cypress is a JavaScript-based tool and you only need to install it via npm to get started. Selenium, however, requires a separate WebDriver and language bindings setup, which can make getting started a bit more complex.
+
+- Automatic Waiting: Cypress automatically waits for commands and assertions before moving on. You don't need to manually add waits or sleeps to your tests. Selenium, on the other hand, often requires explicit waits to be added to your test scripts, which can be difficult to get right and make your tests flaky.
+
+- Real-time Reloads: Cypress automatically reloads whenever you make changes to your tests. This feature can make your test development process more efficient.
+
+- Debuggability: Cypress provides better error messages and has built-in tools for taking screenshots and videos, making it easier to debug failing tests. Selenium's debugging capabilities are comparatively less user-friendly.
+
+- Network Traffic Control: Cypress can control and alter any network request coming out of your application. This ability is useful for testing different scenarios and edge cases. While Selenium can also handle network traffic, it requires third-party tools and is less straightforward to use.
+
+- Consistent Results: Because of its architecture and features like automatic waiting, Cypress tends to produce more consistent results and fewer flaky tests compared to Selenium.
